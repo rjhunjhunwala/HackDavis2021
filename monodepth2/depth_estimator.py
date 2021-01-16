@@ -47,28 +47,29 @@ depth_decoder.load_state_dict(loaded_dict)
 
 depth_decoder.to(device)
 depth_decoder.eval()
-
+print("finished preprocessing!")
 
 def put_depths_in_dict(input_image):
-    # PREDICTING ON EACH IMAGE IN TURN
-
-    # Load image and preprocess
+    
 
     original_width, original_height = input_image.size
-    print(feed_width, feed_height)
     input_image = input_image.resize((feed_width, feed_height), pil.LANCZOS)
     input_image = transforms.ToTensor()(input_image).unsqueeze(0)
 
     # PREDICTION
     input_image = input_image.to(device)
     features = encoder(input_image)
+    
     outputs = depth_decoder(features)
 
     output_tensor = outputs[("disp", 0)]
     depth_mat = output_tensor.detach().cpu().numpy()[0][0]
 
     return np.max(depth_mat), np.unravel_index(depth_mat.argmax(), depth_mat.shape)
-
+"""
 try:
-    input_image = pil.open("C:\\Users\\Rohan Jhunjhunwala\\HackDavis2021\\monodepth2\\assets\\test_image.jpg").convert('RGB')
-    print(put_depths_in_dict(input_image)
+    input_image = pil.open("/Users/kushagrapandey/HackDavis2021/monodepth2/assets/test_image.jpg").convert('RGB')
+    print(put_depths_in_dict(input_image))
+except:
+    pass
+"""

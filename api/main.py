@@ -3,6 +3,10 @@ from flask import Flask, request, Response
 import base64
 import io
 from PIL import Image
+import sys
+sys.path.append("..")
+from monodepth2.depth_estimator import put_depths_in_dict
+
 
 app = Flask(__name__)
 
@@ -19,6 +23,7 @@ def sendvideo():
     Calls Rohan's function
     """
     img = request.args['img']
+    
     img = base64.b64decode(img)
     buf = io.BytesIO(img)
     img = Image.open(buf)
@@ -27,9 +32,16 @@ def sendvideo():
 
     #Rohan's function???
     #for now, save to disk as test
-    img = img.save("downloaded.png")
     
-    return 'Hello World'
+    #img = img.save("downloaded.png")
+    try:
+        input_image = img.convert('RGB')
+        return(str(put_depths_in_dict(input_image)))
+    except:
+        return 'Hello World'
+
+def streamAudio():
+    yield globalVar["audio"]
 
 @app.route('/getaudio')
 def getaudio():
