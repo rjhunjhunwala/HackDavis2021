@@ -37,7 +37,9 @@ def sendvideo():
         #img = img.save("downloaded.png")
         try:
             input_image = img.convert('RGB')
-            return(str(put_depths_in_dict(input_image)))
+            #return(str(put_depths_in_dict(input_image)))
+            r = put_depths_in_dict(input_image)
+            return " ".join([str(r[0]), str(r[1][0]), str(r[1][1])])
         except:
             return 'Hello World'
     else:
