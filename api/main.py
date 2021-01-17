@@ -23,7 +23,7 @@ def sendvideo():
     Calls Rohan's function
     """
     if request.method=='POST':
-        img = request.get_json()['img']
+        img = request.get_json(force=True)['img']
         
         img = base64.b64decode(img)
         buf = io.BytesIO(img)
