@@ -16,29 +16,32 @@ globalVar = {"image": None, "audio": None}
 def home():
     return 'Hello World'
 
-@app.route('/sendvideo')
+@app.route('/sendvideo', methods=['POST', 'GET'])
 def sendvideo():
     """
     Receives a base64 encoded image as the img parameter and updates the global variable.
     Calls Rohan's function
     """
-    img = request.args['img']
-    
-    img = base64.b64decode(img)
-    buf = io.BytesIO(img)
-    img = Image.open(buf)
-    
-    globalVar["image"] = img
+    if request.method=='POST':
+        img = request.get_json()['img']
+        
+        img = base64.b64decode(img)
+        buf = io.BytesIO(img)
+        img = Image.open(buf)
+        
+        globalVar["image"] = img
 
-    #Rohan's function???
-    #for now, save to disk as test
-    
-    #img = img.save("downloaded.png")
-    try:
-        input_image = img.convert('RGB')
-        return(str(put_depths_in_dict(input_image)))
-    except:
-        return 'Hello World'
+        #Rohan's function???
+        #for now, save to disk as test
+        
+        #img = img.save("downloaded.png")
+        try:
+            input_image = img.convert('RGB')
+            return(str(put_depths_in_dict(input_image)))
+        except:
+            return 'Hello World'
+    else:
+        return 'HELLO WORLD'
 
 def streamAudio():
     yield globalVar["audio"]
