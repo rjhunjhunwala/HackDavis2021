@@ -13,9 +13,9 @@ from torchvision import transforms, datasets
 import monodepth2.networks as networks
 from monodepth2.layers import disp_to_depth
 from monodepth2.utils import download_model_if_doesnt_exist
-model = "mono_640x192"
-download_model_if_doesnt_exist("mono_640x192")
-model_path = os.path.join("models", "mono_640x192")
+model = "mono_1024x320"
+download_model_if_doesnt_exist("mono_1024x320")
+model_path = os.path.join("models", "mono_1024x320")
 print("-> Loading model from ", model_path)
 encoder_path = os.path.join(model_path, "encoder.pth")
 depth_decoder_path = os.path.join(model_path, "depth.pth")
