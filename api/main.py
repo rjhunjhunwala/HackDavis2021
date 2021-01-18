@@ -40,8 +40,8 @@ def sendvideo():
             #return(str(put_depths_in_dict(input_image)))
             r = put_depths_in_dict(input_image)
             return " ".join([str(r[0]), str(r[1][0]), str(r[1][1])])
-        except:
-            return 'Hello World'
+        except Exception as e:
+            return str(e)
     else:
         return 'HELLO WORLD'
 
