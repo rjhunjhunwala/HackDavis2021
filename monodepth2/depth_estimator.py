@@ -65,7 +65,7 @@ def put_depths_in_dict(input_image):
     output_tensor = outputs[("disp", 0)]
     depth_mat = output_tensor.detach().cpu().numpy()[0][0]
 
-    return np.max(depth_mat), np.unravel_index(depth_mat.argmax(), depth_mat.shape)
+    return np.mean(depth_mat), np.unravel_index(depth_mat.argmax(), depth_mat.shape)
 """
 try:
     input_image = pil.open("/Users/kushagrapandey/HackDavis2021/monodepth2/assets/test_image.jpg").convert('RGB')
