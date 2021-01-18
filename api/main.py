@@ -34,10 +34,10 @@ def sendvideo():
         #Rohan's function???
         #for now, save to disk as test
         
-        img = img.save("downloaded.png")
+        #img = img.save("downloaded.png")
         try:
             input_image = img.convert('RGB')
-        #return(str(put_depths_in_dict(input_image)))
+            #return(str(put_depths_in_dict(input_image)))
             r = put_depths_in_dict(input_image)
             return " ".join([str(r[0]), str(r[1][0]), str(r[1][1])])
         except Exception as e:
